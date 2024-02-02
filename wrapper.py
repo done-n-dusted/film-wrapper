@@ -42,6 +42,7 @@ def parse_arguments():
     parser.add_argument('--img1', type=str, help='Input image 1 location')
     parser.add_argument('--img2', type=str, help='Input image 2 location')
     parser.add_argument('--out', type=str, help='Name of the output file. Do not include extension.')
+    parser.add_argument('--n', type=int, help='Number of frames to interpolate between img1 and img2', default=1)
 
 
     return parser.parse_args()
@@ -50,8 +51,12 @@ def main():
     args = parse_arguments()
     wrapper = Wrapper()
     wrapper.input_image(args.img1, args.img2)
-    mid_frame = wrapper.predict_mid(args.out, True)
-    print("Mid frame generated and saved")
+    if args.n == 1:
+        mid_frame = wrapper.predict_mid(args.out, True)
+        print("Mid frame generated and saved")
+    else:
+        # wrapper.predict_interpolate(args.out, args.n)
+        print("Interpolation generated and saved")
 
 if __name__ == "__main__":
     main()
