@@ -7,18 +7,21 @@ import numpy as np
 
 from typing import Generator, Iterable, List, Tuple
 import mediapy as media
+from PIL import Image
 
 class Wrapper:
     def __init__(self):
         self.model = hub.load("https://tfhub.dev/google/film/1")
     
     def input_image(self, img1: str, img2: str):
-        self.img1 = media.read_image(img1)
-        self.img2 = media.read_image(img2)
+        # self.img1 = media.read_image(img1) 
+        # self.img2 = media.read_image(img2)
+        self.img1 = np.array(Image.open(img1))/255.0
+        self.img2 = np.array(Image.open(img2))/255.0
 
     def predict_mid(self, out, save=True):
         input = {
-            'time': np.expand_dims(0.5, axis=0),
+            'time': np.expand_dims(np.array([0.5], dtpye = np.float32), axis=0),
             'x0': np.expand_dims(self.img1, axis=0),
             'x1': np.expand_dims(self.img2, axis=0)
         }
