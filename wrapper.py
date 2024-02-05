@@ -21,7 +21,7 @@ class Wrapper:
 
     def predict_mid(self, out, save=True):
         input = {
-            'time': np.expand_dims(np.array([0.5], dtpye = np.float32), axis=0),
+            'time': np.expand_dims(np.array([0.5], dtype = np.float32), axis=0),
             'x0': np.expand_dims(self.img1, axis=0),
             'x1': np.expand_dims(self.img2, axis=0)
         }
@@ -87,6 +87,7 @@ def main():
     args = parse_arguments()
     wrapper = Wrapper()
     wrapper.input_image(args.img1, args.img2)
+    print("Images loaded. Time taken: ", time.time() - start, " seconds."
     saved = ""
     if args.save:
         saved = " and saved"
