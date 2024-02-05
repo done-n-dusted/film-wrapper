@@ -17,9 +17,9 @@ class Wrapper:
         # self.img1 = media.read_image(img1) 
         # self.img2 = media.read_image(img2)
         self.img1 = np.array(Image.open(img1))/255.0
-        self.img1 = tf.cast(tf.io.decode_image(self.img1, channels=3), dtype=tf.float32).numpy()
+        self.img1 = tf.cast(self.img1, dtype=tf.float32).numpy()
         self.img2 = np.array(Image.open(img2))/255.0
-        self.img2 = tf.cast(tf.io.decode_image(self.img2, channels=3), dtype=tf.float32).numpy()
+        self.img2 = tf.cast(self.img2, dtype=tf.float32).numpy()
 
     def predict_mid(self, out, save=True):
         input = {
