@@ -17,7 +17,9 @@ class Wrapper:
         # self.img1 = media.read_image(img1) 
         # self.img2 = media.read_image(img2)
         self.img1 = np.array(Image.open(img1))/255.0
+        self.img1 = tf.cast(tf.io.decode_image(self.img1, channels=3), dtype=tf.float32).numpy()
         self.img2 = np.array(Image.open(img2))/255.0
+        self.img2 = tf.cast(tf.io.decode_image(self.img2, channels=3), dtype=tf.float32).numpy()
 
     def predict_mid(self, out, save=True):
         input = {
@@ -87,7 +89,7 @@ def main():
     args = parse_arguments()
     wrapper = Wrapper()
     wrapper.input_image(args.img1, args.img2)
-    print("Images loaded. Time taken: ", time.time() - start, " seconds."
+    print("Images loaded. Time taken: ", time.time() - start, " seconds.")
     saved = ""
     if args.save:
         saved = " and saved"
