@@ -38,9 +38,9 @@ class Wrapper:
 
     def _pred_mid(self, img1, img2):
         input = {
-            'time': np.expand_dims(0.5, axis=0),
-            'x0': np.expand_dims(img1, axis=0),
-            'x1': np.expand_dims(img2, axis=0)
+            'time': np.expand_dims(np.array([0.5], dtype = np.float32), axis=0),
+            'x0': np.expand_dims(self.img1, axis=0),
+            'x1': np.expand_dims(self.img2, axis=0)
         }
 
         mid_frame = self.model(input)
@@ -58,6 +58,7 @@ class Wrapper:
             if l + 1 == r:
                 return
             mid = (l + r) // 2
+            print("predicting frame", mid)
             frames[mid] = self._pred_mid(frames[l], frames[r])
             dfs(l, mid)
             dfs(mid, r)
